@@ -1,5 +1,7 @@
 package xyz.blueowl.ispychallenge.data.models
 
+import xyz.blueowl.ispychallenge.ui.near_me.formatDouble
+
 /**
  * Data class that represents the information related to a Challenge.
  *
@@ -21,4 +23,10 @@ data class Challenge (
     val userId: String,
     val matches: List<Match>,
     val ratings: List<Rating>
-)
+) {
+    fun getAverageRating() =
+        ratings.sumOf { it.stars.toDouble() }.div(ratings.count())
+
+    fun totalWins() =
+        matches.count { it.verified }.toString()
+}

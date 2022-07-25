@@ -13,4 +13,5 @@ sealed class DataBrowserNavState {
     class MatchesNavState(val userId: String?, val challengeId: String?): DataBrowserNavState()
     class MatchNavState(val matchId: String): DataBrowserNavState()
     class RatingsNavState(val userId: String?, val challengeId: String?): DataBrowserNavState()
+    class NearMeNavState(val challengeImage: String) : DataBrowserNavState()
 }

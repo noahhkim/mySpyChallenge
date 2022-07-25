@@ -15,6 +15,7 @@ import xyz.blueowl.ispychallenge.extensions.requireISpyApplication
 import xyz.blueowl.ispychallenge.ui.data_browser.shared.DataBrowserNavState
 import xyz.blueowl.ispychallenge.ui.safeCollectFlow
 import xyz.blueowl.ispychallenge.ui.data_browser.shared.UniversalListAdapter
+import xyz.blueowl.ispychallenge.ui.near_me.NearMeViewModelFactory
 
 class DataBrowserFragment : Fragment() {
 
@@ -30,7 +31,7 @@ class DataBrowserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val factory = DataBrowserViewModelFactory(requireISpyApplication().dataRepository)
+        val factory = NearMeViewModelFactory(requireISpyApplication().dataRepository)
         val dataBrowserViewModel = ViewModelProvider(this, factory)[DataBrowserViewModel::class.java]
 
         _binding = FragmentDataBrowserBinding.inflate(inflater, container, false)
@@ -62,17 +63,5 @@ class DataBrowserFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private class DataBrowserViewModelFactory(
-        private val dataRepository: DataRepository
-    ): ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DataBrowserViewModel::class.java)){
-                return DataBrowserViewModel(dataRepository) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
-        }
     }
 }
